@@ -61,6 +61,9 @@
             "production": {
               "buildTarget": "SuperHeroApp:build:production"
             },
+            "options": {
+              "proxyConfig": "proxy.conf.json"
+            },
             "development": {
               "buildTarget": "SuperHeroApp:build:development"
             }

@@ -9,17 +9,20 @@
 
 <div class="container">
   <h1>Superhero Registry</h1>
-  <form id="superhero-form">
+  <form id="superhero-form" (ngSubmit)="onSubmit()">
     <label for="search_type">Search by:</label>
-    <select id="search_type" name="search_type">
+    <select id="search_type" name="search_type" [(ngModel)]="searchType">
       <option value="superhero_id">Superhero ID</option>
-      <option value="full_name">Name</option>
+      <!--option value="full_name">Name</option -->
     </select>
-    <label for="search_value"></label><input type="text" id="search_value" name="search_value" required>
+    <label for="search_value"></label>
+    <input type="text" id="search_value" name="search_value" [(ngModel)]="searchValue" required>
     <button type="submit">Get Superhero Info</button>
   </form>
 
-  <div id="result"></div>
+  <div id="result">
+    <pre>{{ result | json }}</pre>
+  </div>
 </div>
 
 </body>
