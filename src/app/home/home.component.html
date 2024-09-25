@@ -9,19 +9,48 @@
 
 <div class="container">
   <h1>Superhero Registry</h1>
+
+  <!-- Form to search superheroes -->
   <form id="superhero-form" (ngSubmit)="onSubmit()">
     <label for="search_type">Search by:</label>
     <select id="search_type" name="search_type" [(ngModel)]="searchType">
-      <option value="superhero_id">Superhero ID</option>
-      <!--option value="full_name">Name</option -->
+      <option value="id">Superhero ID</option>
+      <option value="full_name">Name</option>
     </select>
-    <label for="search_value"></label>
+    <label for="search_value">Search Value:</label>
     <input type="text" id="search_value" name="search_value" [(ngModel)]="searchValue" required>
     <button type="submit">Get Superhero Info</button>
   </form>
 
-  <div id="result">
-    <pre>{{ result | json }}</pre>
+  <!-- Display basic superhero data -->
+  <div *ngIf="result" id="results">
+    <h2>{{ result.name }}</h2>
+    <p><strong>Full Name:</strong> {{ result.biography['full-name'] }}</p>
+    <p><strong>Place of Birth:</strong> {{ result.biography['place-of-birth'] }}</p>
+  </div>
+
+  <!-- Display powerstats -->
+  <div *ngIf="powerstats" id="stats-list">
+    <h3>Powerstats</h3>
+    <ul>
+      <li>Intelligence: {{ powerstats.intelligence }}</li>
+      <li>Strength: {{ powerstats.strength }}</li>
+      <li>Speed: {{ powerstats.speed }}</li>
+      <li>Durability: {{ powerstats.durability }}</li>
+      <li>Power: {{ powerstats.power }}</li>
+      <li>Combat: {{ powerstats.combat }}</li>
+    </ul>
+  </div>
+
+  <!-- Display appearance -->
+  <div *ngIf="appearance">
+    <h3>Appearance</h3>
+    <ul>
+      <li>Gender: {{ appearance.gender }}</li>
+      <li>Race: {{ appearance.race }}</li>
+      <li>Height: {{ appearance.height[1] }}</li>
+      <li>Eye Color: {{ appearance['eye-color'] }}</li>
+    </ul>
   </div>
 </div>
 
