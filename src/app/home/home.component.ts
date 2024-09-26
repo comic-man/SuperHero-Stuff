@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf,
+    CommonModule
   ],
   standalone: true
 })
@@ -24,19 +29,13 @@ export class HomeComponent {
   onSubmit() {
     if (this.searchType === 'id') {
       this.apiService.getSuperheroById(this.searchValue).subscribe(
-        data => {
-          this.result = data;
-          this.fetchAdditionalData(this.searchValue);
-        },
+        data => this.result = data,
         error => console.error('Error fetching superhero by ID:', error)
       );
     } else if (this.searchType === 'full_name') {
-      this.apiService.searchSuperheroByName(this.searchValue).subscribe(
-        data => {
-          this.result = data.results[0];
-          this.fetchAdditionalData(this.result.id);
-        },
-        error => console.error('Error fetching superhero by name:', error)
+      this.apiService.getSuperheroByName(this.searchValue).subscribe(
+          (data: any) => this.result = data,
+          (error: any) => console.error('Error fetching superhero by name:', error)
       );
     }
   }
@@ -54,6 +53,18 @@ export class HomeComponent {
     );
 
     this.apiService.getSuperheroAppearanceById(superheroId).subscribe(
+      data => this.appearance = data,
+      error => console.error('Error fetching appearance:', error)
+    );
+    this.apiService.getSuperheroWorkById(superheroId).subscribe(
+      data => this.appearance = data,
+      error => console.error('Error fetching appearance:', error)
+    );
+    this.apiService.getSuperheroConnectionsById(superheroId).subscribe(
+      data => this.appearance = data,
+      error => console.error('Error fetching appearance:', error)
+    );
+    this.apiService.getSuperheroImageById(superheroId).subscribe(
       data => this.appearance = data,
       error => console.error('Error fetching appearance:', error)
     );
